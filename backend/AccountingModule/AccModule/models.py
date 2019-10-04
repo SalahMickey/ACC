@@ -2,8 +2,12 @@ from django.db import models
 import datetime
 # Create your models here.
 class company(models.Model):
-    name = models.CharField()
-    
+    name = models.CharField(max_length=200)
+    img = models.FileField(null=True)
+    website = models.CharField(max_length=200)
+    phone  = models.IntegerField(default=0)
+    phone1 = models.IntegerField(default=0)
+    address = models.CharField(max_length=250)
 class Accounts_Types(models.Model):
     name = models.CharField(max_length=250)
 
@@ -31,9 +35,13 @@ class Period(models.Model):
 class journal(models.Model):
     description = models.CharField(max_length=50)
     date = models.DateTimeField()
+    reference = models.CharField(max_length=200)
 
 class journalEntry(models.Model):
     journal_id = models.ForeignKey(journal, on_delete=models.PROTECT)
+    date = models.DateTimeField()
+    label = models.CharField(max_length=200)
+    partner = models.CharField(max_length=200)
     account = models.ForeignKey(COA, on_delete=models.PROTECT)
     credit = models.DecimalField(max_digits=19, decimal_places=6)
     debit = models.DecimalField(max_digits=19, decimal_places=6)
